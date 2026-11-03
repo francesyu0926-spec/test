@@ -1,0 +1,316 @@
+# CBD 行情 HTTP 接口监控清单（来源：《行情系统监控及维护》）
+# 默认仅在 09:00–23:39（Asia/Shanghai）执行；not_before 可推迟单接口开始时间。
+
+base_url: "https://terminal.sfccn.com/terminal/quotes"
+
+# 文档联系人（告警路由可自行对接 webhook）
+default_contact: "高德建"
+
+default_fields: &default_fields
+  - code
+  - name
+  - spe
+  - PBR
+  - pe
+  - amount
+  - turnoverRate
+  - threeMinRise
+  - lastPrice
+  - preClosePrice
+  - fiveMinRise
+
+endpoints:
+  - name: quote
+    description: 实时行情查询
+    enabled: true
+    body:
+      code: "300006.SZ"
+      field: "1"
+      fields: *default_fields
+      pageIndex: 0
+      pageSize: 5
+
+  - name: line
+    description: 当日分时
+    enabled: true
+    not_before: "09:30"
+    body:
+      marketId: "XSHE"
+      code: "300006.SZ"
+
+  - name: line5d
+    description: 5日分时
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: astocksquote
+    description: 涨跌幅统计
+    enabled: true
+    not_before: "09:30"
+    body:
+      code: "600070.SH"
+
+  - name: catesorting
+    description: 分类排行
+    enabled: true
+    body:
+      code: "9E341731AEDFB798E050A8C05B01C2B2"
+      field: "1"
+      fields: *default_fields
+      pageIndex: 0
+      pageSize: 5
+
+  - name: m1
+    description: 1分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: m5
+    description: 5分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: m15
+    description: 15分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: m30
+    description: 30分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: m60
+    description: 60分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: m120
+    description: 120分钟K线
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: dayk
+    description: 日K线
+    enabled: true
+    body:
+      code: "600070.SH"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101"
+      mode: 1
+
+  - name: weekk
+    description: 周K线
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: monthk
+    description: 月K线
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101"
+      mode: 0
+
+  - name: yeark
+    description: 年K线
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101"
+      mode: 0
+
+  - name: bankuaisorting
+    description: 板块排行
+    enabled: true
+    body:
+      code: "300006.SZ"
+      requestType: 1
+      subtype: ""
+      datetime: "19900101000000"
+      mode: 0
+
+  - name: hstline
+    description: 资金流向
+    enabled: false
+    note: 文档标注已过期
+    body:
+      type: "hkt"
+
+  - name: newTradeDate
+    description: 查询交易日
+    enabled: false
+    note: 文档标注已过期
+    body: {}
+
+  - name: quotentrd1
+    description: 行情快照
+    enabled: false
+    note: 文档标注已过期
+    body: {}
+
+  - name: tick
+    description: 成交明细
+    enabled: false
+    note: 文档标注已过期
+    body: {}
+
+  - name: search_v2
+    description: 证券基础信息查询
+    enabled: true
+    body:
+      keyword: "1"
+      size: 15
+
+  - name: addvalue
+    description: 增值指标接口
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "600070.SH"
+
+  - name: importantindex
+    description: 重要指标接口
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "600070.SH"
+
+  - name: profinmainindex
+    description: 主要指标接口
+    enabled: false
+    note: 文档标注已过期
+    body:
+      code: "600070.SH"
+
+  - name: proincstatementnew
+    description: 利润表接口
+    enabled: true
+    body:
+      code: "600070.SH"
+
+  - name: probalsheetnew
+    description: 资产负债表接口
+    enabled: true
+    body:
+      code: "600070.SH"
+
+  - name: procfstatementnew
+    description: 现金流量表接口
+    enabled: true
+    body:
+      code: "600070.SH"
+
+  - name: bankuaiquote
+    description: 个股所属板块
+    enabled: true
+    body:
+      code: "600070.SH"
+
+  - name: subnewstockranking
+    description: 新股查询
+    enabled: false
+    note: 文档标注已过期
+    body:
+      field: 4
+      pageIndex: 0
+      pageSize: 5
+
+  - name: newsharescal
+    description: 查询未上市股票
+    enabled: true
+    body:
+      date: "2025-08-22"
+      pageIndex: 0
+      pageSize: 5
+
+  - name: shareipodetail
+    description: 公司信息
+    enabled: false
+    note: 文档标注待定
+    body:
+      code: "603370.SH"
+
+  - name: kzzquotelist
+    description: 可转债
+    enabled: true
+    body:
+      pageIndex: 0
+      pageSize: 10
+
+  - name: updowns
+    description: 涨跌家数统计
+    enabled: true
+    body: {}
+
+  - name: sectorMultipleSort
+    description: 分类排行（多榜）
+    enabled: true
+    body:
+      pageIndex: 0
+      pageSize: 10
+      sectors:
+        - identifier: 涨速榜
+          code: "9E341731AEDFB798E050A8C05B01C2B2"
+          field: 114
+          fields: *default_fields
+        - identifier: 换手率榜
+          code: "9E341731AEDFB798E050A8C05B01C2B2"
+          field: 15
+          fields: *default_fields
+        - identifier: 跌速榜
+          code: "9E341731AEDFB798E050A8C05B01C2B2"
+          field: 114
+          fields: *default_fields
+        - identifier: 总金额榜
+          code: "9E341731AEDFB798E050A8C05B01C2B2"
+          field: 20
+          fields: *default_fields
